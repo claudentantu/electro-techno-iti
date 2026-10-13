@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071b33">
+<meta name="description" content="Cours, exercices et fiches de révision en électronique pour les élèves de l'ITI N'Djili.">
+<title>ÉLECTRO TECH | ITI N'DJILI</title>
+
+<style>
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #172033;
+  --blue: #087cf0;
+  --dark: #071b33;
+  --green: #16a34a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+header {
+  background: var(--dark);
+  color: white;
+  padding: 24px 16px;
+  text-align: center;
+}
+header h1 { margin: 0 0 8px; }
+header p { color: #cbd5e1; }
+nav {
+  background: #102945;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px;
+}
+nav button {
+  background: transparent;
+  color: white;
+  border: 1px solid #42617e;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+nav button:hover { background: var(--blue); }
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 18px;
+}
+.hero {
+  background: linear-gradient(135deg,#087cf0,#073b80);
+  color: white;
+  padding: 25px 20px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+.hero h2 { margin-top: 0; }
+input[type="search"] {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  margin: 8px 0 20px;
+  font-size: 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+  gap: 15px;
+}
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 3px 12px #0000000b;
+}
+.card h3 { margin-top: 0; color: #0756a5; }
+.badge {
+  display: inline-block;
+  background: #dbeafe;
+  color: #0756a5;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+.btn {
+  background: var(--blue);
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 14px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.btn:hover { opacity: .88; }
+.secondary { background: #475569; }
+.lesson {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  line-height: 1.7;
+}
+.lesson h2 { color: #0756a5; }
+.lesson h3 { margin-top: 25px; }
+.formula {
+  background: #eaf3ff;
+  border-left: 4px solid var(--blue);
+  padding: 14px;
+  overflow-wrap: anywhere;
+}
+.warning {
+  background: #fff7ed;
+  border-left: 4px solid #f97316;
+  padding: 12px;
+}
+#quizResult {
+  font-weight: bold;
+  margin-top: 15px;
+}
+footer {
+  background: var(--dark);
+  color: white;
+  text-align: center;
+  padding: 22px;
+  margin-top: 30px;
+}
+.hidden { display: none; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>⚡ ÉLECTRO TECH</h1>
+  <p>ITI N'DJILI • Apprendre, comprendre et pratiquer</p>
+</header>
+
+<nav>
+  <button onclick="showPage('accueil')">Accueil</button>
+  <button onclick="showPage('cours')">Cours</button>
+  <button onclick="showPage('exercices')">Exercices</button>
+  <button onclick="showPage('apropos')">À propos</button>
+</nav>
+
+<main class="container">
+
+<section id="accueil">
+  <div class="hero">
+    <h2>Bienvenue sur ÉLECTRO TECH !</h2>
+    <p>Un espace pour apprendre l'électronique avec tes camarades :
+    cours simples, formules, composants et exercices.</p>
+    <button class="btn" onclick="showPage('cours')">
+      Commencer à apprendre →
+    </button>
+  </div>
+
+  <h2>📚 Nos matières</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>🔌 Composants électroniques</h3>
+      <p>Résistances, diodes, transistors, condensateurs et relais.</p>
+      <button class="btn" onclick="openLesson('composants')">
+        Découvrir
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>⚙️ Lois électriques</h3>
+      <p>La tension, l'intensité, la résistance et la loi d'Ohm.</p>
+      <button class="btn" onclick="openLesson('ohm')">
+        Apprendre
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>🔧 Montages électroniques</h3>
+      <p>Comprendre les circuits et le rôle de chaque composant.</p>
+      <button class="btn" onclick="openLesson('montages')">
+        Explorer
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>🧠 Révision</h3>
+      <p>Teste tes connaissances grâce à nos questions interactives.</p>
+      <button class="btn" onclick="showPage('exercices')">
+        Faire un quiz
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="cours" class="hidden">
+  <h2>📖 Tous les cours</h2>
+  <input type="search" id="search"
+  placeholder="Rechercher un cours..."
+  oninput="filterCourses()">
+
+  <div class="grid" id="courseList"></div>
+</section>
+
+<section id="lecture" class="hidden">
+  <button class="btn secondary" onclick="showPage('cours')">
+    ← Retour aux cours
+  </button>
+  <article id="lessonContent" class="lesson"></article>
+</section>
+
+<section id="exercices" class="hidden">
+  <div class="card">
+    <h2>📝 Quiz d'électronique</h2>
+    <p>Choisis une réponse à chaque question, puis vérifie ton résultat.</p>
+
+    <form id="quizForm">
+      <div id="quizQuestions"></div>
+      <button type="submit" class="btn">Corriger mon quiz</button>
+    </form>
+    <div id="quizResult" aria-live="polite"></div>
+    <button class="btn secondary" onclick="startQuiz()">
+      Recommencer
+    </button>
+  </div>
+</section>
+
+<section id="apropos" class="hidden">
+  <div class="card">
+    <h2>À propos d'ÉLECTRO TECH</h2>
+    <p>ÉLECTRO TECH est un projet éducatif destiné à aider les élèves
+    à mieux comprendre les notions d'électronique.</p>
+    <p><strong>École :</strong> ITI N'DJILI</p>
+    <p><strong>Objectif :</strong> apprendre ensemble, partager les
+    connaissances et réussir les exercices pratiques.</p>
+    <p>Ce site est un projet indépendant créé pour les élèves.
+    Il ne s'agit pas d'un site officiel de l'établissement.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>⚡ ÉLECTRO TECH — ITI N'DJILI</p>
+  <p>La connaissance est un courant qui se partage !</p>
+  <small>Projet éducatif • Version 1.0</small>
+</footer>
+
+<script>
+const lessons = {
+composants: {
+title: "Les composants électroniques",
+level: "Débutant",
+body: `
+<h3>1. La résistance</h3>
+<p>Une résistance limite le courant électrique dans un circuit.
+Sa valeur se mesure en ohms (Ω).</p>
+<div class="formula">Loi d'Ohm : R = U / I</div>
+
+<h3>2. La diode</h3>
+<p>Une diode laisse principalement passer le courant dans un sens.
+Il faut respecter son sens de branchement et ses caractéristiques.</p>
+
+<h3>3. Le transistor</h3>
+<p>Un transistor peut servir d'interrupteur électronique ou amplifier
+un signal. Son fonctionnement dépend de son type et de son montage.</p>
+
+<h3>4. Le condensateur</h3>
+<p>Un condensateur stocke temporairement de l'énergie électrique.
+Sa capacité se mesure en farads (F).</p>
+
+<h3>5. Le relais</h3>
+<p>Un relais est un interrupteur commandé électriquement.
+Il peut permettre à un petit circuit de commande de piloter
+un circuit distinct, dans les limites prévues par le fabricant.</p>
+
+<h3>À retenir</h3>
+<p>Chaque composant a un symbole, une fonction et des caractéristiques
+qu'il faut connaître avant de réaliser un montage.</p>`
+},
+
+ohm: {
+title: "La loi d'Ohm",
+level: "Débutant",
+body: `
+<h3>1. Définition</h3>
+<p>La loi d'Ohm relie la tension, la résistance et l'intensité
+dans un conducteur ohmique, à température constante.</p>
+
+<div class="formula">
+U = R × I<br>
+I = U / R<br>
+R = U / I
+</div>
+
+<h3>2. Les unités</h3>
+<ul>
+<li>U : tension en volts (V)</li>
+<li>I : intensité en ampères (A)</li>
+<li>R : résistance en ohms (Ω)</li>
+</ul>
+
+<h3>3. Exemple corrigé</h3>
+<p>Une résistance de 100 Ω est branchée sous une tension de 10 V.
+Quelle est l'intensité ?</p>
+<div class="formula">
+I = U / R = 10 / 100 = 0,1 A<br>
+Réponse : 0,1 A, soit 100 mA.
+</div>
+
+<h3>4. Puissance électrique</h3>
+<div class="formula">P = U × I</div>
+<p>La puissance se mesure en watts (W). Il faut vérifier la puissance
+maximale admissible par la résistance choisie.</p>`
+},
+
+montages: {
+title: "Introduction aux montages électroniques",
+level: "Intermédiaire",
+body: `
+<h3>1. Qu'est-ce qu'un montage ?</h3>
+<p>Un montage électronique est un ensemble de composants reliés
+selon un schéma afin de réaliser une fonction précise.</p>
+
+<h3>2. Montage en série</h3>
+<p>Dans un circuit simple en série, le même courant traverse
+les différents composants. Les tensions se répartissent entre eux.</p>
+
+<h3>3. Montage en parallèle</h3>
+<p>Dans un circuit en parallèle, les branches ont la même tension
+entre leurs deux bornes. Le courant total se partage entre les branches.</p>
+
+<h3>4. Le relais de commande</h3>
+<p>Un relais comprend généralement une bobine et des contacts.
+Lorsqu'on alimente sa bobine conformément à ses caractéristiques,
+les contacts changent d'état.</p>
+
+<h3>5. Méthode d'étude</h3>
+<ol>
+<li>Identifier les composants et leurs valeurs.</li>
+<li>Lire les symboles du schéma.</li>
+<li>Repérer la source d'alimentation.</li>
+<li>Comprendre le trajet du courant.</li>
+<li>Vérifier les tensions et les limites des composants.</li>
+</ol>
+
+<div class="warning">
+<strong>Sécurité :</strong> commence par des circuits basse tension
+adaptés aux débutants. Ne branche jamais un montage expérimental
+directement sur le secteur 230 V.
+</div>`
+},
+
+numerique: {
+title: "Électronique numérique",
+level: "Intermédiaire",
+body: `
+<h3>1. Les niveaux logiques</h3>
+<p>En électronique numérique, un circuit représente généralement
+les informations par deux états logiques : 0 et 1.</p>
+
+<h3>2. Les portes logiques</h3>
+<ul>
+<li>ET (AND) : la sortie vaut 1 si toutes les entrées valent 1.</li>
+<li>OU (OR) : la sortie vaut 1 si au moins une entrée vaut 1.</li>
+<li>NON (NOT) : inverse l'état logique de l'entrée.</li>
+</ul>
+
+<h3>3. Applications</h3>
+<p>Les portes logiques sont utilisées dans les ordinateurs,
+les systèmes de commande et les circuits numériques.</p>`
+},
+
+mesures: {
+title: "Les appareils de mesure",
+level: "Débutant",
+body: `
+<h3>1. Le multimètre</h3>
+<p>Un multimètre permet notamment de mesurer la tension,
+la résistance et, selon le modèle, l'intensité.</p>
+
+<h3>2. Mesurer une tension</h3>
+<p>La tension se mesure en parallèle aux bornes du composant.
+Choisis le mode et le calibre adaptés.</p>
+
+<h3>3. Mesurer une résistance</h3>
+<p>Coupe l'alimentation du circuit avant la mesure et, si nécessaire,
+isole le composant pour éviter les erreurs.</p>
+
+<h3>4. Mesurer un courant</h3>
+<p>Le multimètre se place en série dans le circuit en utilisant
+la borne et le calibre prévus pour le courant mesuré.</p>
+
+<div class="warning">
+Ne mesure jamais une résistance sur un circuit sous tension.
+Une mauvaise utilisation du multimètre peut provoquer un court-circuit.
+</div>`
+}
+};
+
+function showPage(page) {
+  document.querySelectorAll("main > section").forEach(section => {
+    section.classList.add("hidden");
+  });
+  document.getElementById(page).classList.remove("hidden");
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+function openLesson(id) {
+  const lesson = lessons[id];
+  if (!lesson) return;
+
+  document.getElementById("lessonContent").innerHTML = `
+    <span class="badge">${lesson.level}</span>
+    <h2>${lesson.title}</h2>
+    ${lesson.body}
+  `;
+  showPage("lecture");
+}
+
+function renderCourses(filter = "") {
+  const list = document.getElementById("courseList");
+  list.innerHTML = "";
+
+  Object.entries(lessons)
+    .filter(([id, lesson]) =>
+      (lesson.title + " " + lesson.level).toLowerCase()
+      .includes(filter.toLowerCase())
+    )
+    .forEach(([id, lesson]) => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const title = document.createElement("h3");
+      title.textContent = lesson.title;
+
+      const badge = document.createElement("span");
+      badge.className = "badge";
+      badge.textContent = lesson.level;
+
+      const button = document.createElement("button");
+      button.className = "btn";
+      button.textContent = "Lire le cours";
+      button.onclick = () => openLesson(id);
+
+      card.append(title, badge, document.createElement("br"), button);
+      list.appendChild(card);
+    });
+
+  if (!list.children.length) {
+    list.textContent = "Aucun cours trouvé.";
+  }
+}
+
+function filterCourses() {
+  renderCourses(document.getElementById("search").value);
+}
+
+const questions = [
+  {
+    q: "Quelle est l'unité de la résistance ?",
+    answers: ["Le volt", "L'ohm", "L'ampère"],
+    correct: 1
+  },
+  {
+    q: "Quelle formule représente la loi d'Ohm ?",
+    answers: ["U = R × I", "U = R + I", "U = R / I"],
+    correct: 0
+  },
+  {
+    q: "Quel appareil peut mesurer une tension ?",
+    answers: ["Un multimètre", "Une pince à linge", "Un relais"],
+    correct: 0
+  },
+  {
+    q: "Quel composant peut servir d'interrupteur électronique ?",
+    answers: ["Un transistor", "Un fusible seul", "Un fil seul"],
+    correct: 0
+  },
+  {
+    q: "Dans un montage en série, le courant est-il le même partout ?",
+    answers: ["Oui, dans un circuit simple en série", "Non, jamais", "Seulement sans résistance"],
+    correct: 0
+  },
+  {
+    q: "Quelle est l'unité de la puissance électrique ?",
+    answers: ["Le watt", "L'ohm", "Le farad"],
+    correct: 0
+  }
+];
+
+function startQuiz() {
+  const form = document.getElementById("quizQuestions");
+  form.innerHTML = "";
+  document.getElementById("quizResult").textContent = "";
+
+  questions.forEach((question, i) => {
+    const box = document.createElement("div");
+    box.className = "card";
+
+    const title = document.createElement("p");
+    const strong = document.createElement("strong");
+    strong.textContent = `${i + 1}. ${question.q}`;
+    title.appendChild(strong);
+    box.appendChild(title);
+
+    question.answers.forEach((answer, j) => {
+      const label = document.createElement("label");
+      label.style.display = "block";
+      label.style.padding = "6px 0";
+
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = `q${i}`;
+      radio.value = j;
+      radio.required = true;
+
+      label.append(radio, document.createTextNode(" " + answer));
+      box.appendChild(label);
+    });
+
+    form.appendChild(box);
+  });
+}
+
+document.getElementById("quizForm").addEventListener("submit", event => {
+  event.preventDefault();
+  let score = 0;
+
+  questions.forEach((question, i) => {
+    const answer = document.querySelector(`input[name="q${i}"]:checked`);
+    if (answer && Number(answer.value) === question.correct) score++;
+  });
+
+  document.getElementById("quizResult").textContent =
+    `Ton résultat : ${score}/${questions.length}. ` +
+    (score === questions.length
+      ? "Excellent travail !"
+      : "Relis les cours et réessaie !");
+});
+
+renderCourses();
+startQuiz();
+</script>
+
+</body>
+</html>
